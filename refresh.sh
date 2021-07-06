@@ -1,0 +1,1 @@
+rm -R -f helpers && git clone https://github.com/cabi-org/kubernetes-helper-scripts.git helpers && bash helpers/setup-helper-scripts.sh
