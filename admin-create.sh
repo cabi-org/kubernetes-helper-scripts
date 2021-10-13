@@ -75,7 +75,7 @@ clusters:
 contexts:
 - context:
     cluster: kubernetes
-    namespace: sandbox-$username
+    namespace: default
     user: $username
   name: $username-context@kubernetes
 current-context: $username-context@kubernetes
@@ -120,7 +120,7 @@ subjects:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: admin-$username
+  name: cluster-admin
 EOM
 
 echo apply roles for sandbox
