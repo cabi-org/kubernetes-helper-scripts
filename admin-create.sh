@@ -110,7 +110,7 @@ echo add role binding
 
 cat <<EOM >admin-$username.yaml
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+kind: ClusterRoleBinding
 metadata:
   name: admin-$username
 subjects:
@@ -118,9 +118,9 @@ subjects:
   name: $username
   namespace: kube-system
 roleRef:
+  apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: admin-$username
-  namespace: kube-system
 EOM
 
 echo apply roles for sandbox
