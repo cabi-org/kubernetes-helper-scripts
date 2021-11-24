@@ -119,12 +119,15 @@ metadata:
   namespace: $namespacedev
   name: pod-reader
 rules:
-- apiGroups: ["extensions", "apps","networking.k8s.io", "extensions", "apps", "autoscaling", "cert-manager.io"]
-  resources: ["deployments","ingresses","daemonsets","replicasets","horizontalpodautoscalers","statefulsets","certificates","certificaterequests"]
+- apiGroups: ["extensions", "apps","networking.k8s.io", "extensions", "apps", "autoscaling", "cert-manager.io","mongodbcommunity.mongodb.com","atlas.mongodb.com"]
+  resources: ["deployments","ingresses","daemonsets","replicasets","horizontalpodautoscalers","statefulsets","certificates","certificaterequests","ingress","mongodbcommunity","atlasclusters","atlasdatabaseusers","atlasprojects"]
   verbs: ["get", "watch", "list"]
 - apiGroups: [""] # "" indicates the core API group
   resources: ["pods","pods/log","services","configmaps","replicationcontrollers","persistentvolumeclaims","endpoints","events"]
   verbs: ["get", "watch", "list", "exec","describe"]
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["pods"]
+  verbs: ["delete"]
 - apiGroups: [""] # "" indicates the core API group
   resources: ["secrets"]
   verbs: ["list"]
