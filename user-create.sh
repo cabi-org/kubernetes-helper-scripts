@@ -127,7 +127,7 @@ rules:
   verbs: ["get", "watch", "list", "exec","describe"]
 - apiGroups: [""] # "" indicates the core API group
   resources: ["pods"]
-  verbs: ["delete"]
+  verbs: ["delete", "patch"]
 - apiGroups: [""] # "" indicates the core API group
   resources: ["secrets"]
   verbs: ["list"]
@@ -142,17 +142,83 @@ rules:
 ---
 
 apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: $namespaceqa
+  name: pod-basic-reader
+rules:
+- apiGroups: ["extensions", "apps","networking.k8s.io", "extensions", "apps", "autoscaling", "cert-manager.io","mongodbcommunity.mongodb.com","atlas.mongodb.com"]
+  resources: ["deployments","ingresses","daemonsets","replicasets","horizontalpodautoscalers","statefulsets","certificates","certificaterequests","ingress","mongodbcommunity","atlasclusters","atlasdatabaseusers","atlasprojects"]
+  verbs: ["get", "watch", "list"]
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["pods","pods/log","services","configmaps","replicationcontrollers","persistentvolumeclaims","endpoints","events"]
+  verbs: ["get", "watch", "list", "describe"]
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["pods"]
+  verbs: ["delete"]
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["secrets"]
+  verbs: ["list"]
+- apiGroups: ["batch"]
+  resources:
+  - jobs
+  - cronjobs
+  verbs: ["get","watch","list"]
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: $namespacestaging
+  name: pod-basic-reader
+rules:
+- apiGroups: ["extensions", "apps","networking.k8s.io", "extensions", "apps", "autoscaling", "cert-manager.io","mongodbcommunity.mongodb.com","atlas.mongodb.com"]
+  resources: ["deployments","ingresses","daemonsets","replicasets","horizontalpodautoscalers","statefulsets","certificates","certificaterequests","ingress","mongodbcommunity","atlasclusters","atlasdatabaseusers","atlasprojects"]
+  verbs: ["get", "watch", "list"]
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["pods","pods/log","services","configmaps","replicationcontrollers","persistentvolumeclaims","endpoints","events"]
+  verbs: ["get", "watch", "list", "describe"]
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["pods"]
+  verbs: ["delete"]
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["secrets"]
+  verbs: ["list"]
+- apiGroups: ["batch"]
+  resources:
+  - jobs
+  - cronjobs
+  verbs: ["get","watch","list"]
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: pod-reader-$username
-  namespace: $namespacedev
+  name: pod-basic-reader-$username
+  namespace: $namespaceqa
 subjects:
 - kind: User
   name: $username
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: Role
-  name: pod-reader
+  name: pod-basic-reader
+  apiGroup: rbac.authorization.k8s.io
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: pod-basic-reader-$username
+  namespace: $namespacestaging
+subjects:
+- kind: User
+  name: $username
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: pod-basic-reader
   apiGroup: rbac.authorization.k8s.io
 
 ---
