@@ -119,7 +119,7 @@ metadata:
   namespace: $namespacedev
   name: pod-reader
 rules:
-- apiGroups: ["extensions", "apps","networking.k8s.io", "extensions", "apps", "autoscaling", "cert-manager.io","mongodbcommunity.mongodb.com","atlas.mongodb.com"]
+- apiGroups: ["extensions", "apps","networking.k8s.io", "extensions", "autoscaling", "cert-manager.io","mongodbcommunity.mongodb.com","atlas.mongodb.com"]
   resources: ["deployments","ingresses","daemonsets","replicasets","horizontalpodautoscalers","statefulsets","certificates","certificaterequests","ingress","mongodbcommunity","atlasclusters","atlasdatabaseusers","atlasprojects"]
   verbs: ["get", "watch", "list"]
 - apiGroups: [""] # "" indicates the core API group
@@ -147,7 +147,7 @@ metadata:
   namespace: $namespaceqa
   name: pod-basic-reader
 rules:
-- apiGroups: ["extensions", "apps","networking.k8s.io", "extensions", "apps", "autoscaling", "cert-manager.io","mongodbcommunity.mongodb.com","atlas.mongodb.com"]
+- apiGroups: ["extensions", "apps","networking.k8s.io", "extensions", "autoscaling", "cert-manager.io","mongodbcommunity.mongodb.com","atlas.mongodb.com"]
   resources: ["deployments","ingresses","daemonsets","replicasets","horizontalpodautoscalers","statefulsets","certificates","certificaterequests","ingress","mongodbcommunity","atlasclusters","atlasdatabaseusers","atlasprojects"]
   verbs: ["get", "watch", "list"]
 - apiGroups: [""] # "" indicates the core API group
@@ -172,7 +172,7 @@ metadata:
   namespace: $namespacestaging
   name: pod-basic-reader
 rules:
-- apiGroups: ["extensions", "apps","networking.k8s.io", "extensions", "apps", "autoscaling", "cert-manager.io","mongodbcommunity.mongodb.com","atlas.mongodb.com"]
+- apiGroups: ["extensions", "apps","networking.k8s.io", "extensions", "autoscaling", "cert-manager.io","mongodbcommunity.mongodb.com","atlas.mongodb.com"]
   resources: ["deployments","ingresses","daemonsets","replicasets","horizontalpodautoscalers","statefulsets","certificates","certificaterequests","ingress","mongodbcommunity","atlasclusters","atlasdatabaseusers","atlasprojects"]
   verbs: ["get", "watch", "list"]
 - apiGroups: [""] # "" indicates the core API group
@@ -189,6 +189,22 @@ rules:
   - jobs
   - cronjobs
   verbs: ["get","watch","list"]
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: pod-basic-reader-$username
+  namespace: $namespacedevelopment
+subjects:
+- kind: User
+  name: $username
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: pod-basic-reader
+  apiGroup: rbac.authorization.k8s.io
+
 ---
 
 apiVersion: rbac.authorization.k8s.io/v1
