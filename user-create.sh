@@ -194,7 +194,7 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: pod-basic-reader-$username
+  name: pod-reader-$username
   namespace: $namespacedevelopment
 subjects:
 - kind: User
@@ -202,7 +202,7 @@ subjects:
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: Role
-  name: pod-basic-reader
+  name: pod-reader
   apiGroup: rbac.authorization.k8s.io
 
 ---
