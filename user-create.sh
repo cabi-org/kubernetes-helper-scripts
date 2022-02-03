@@ -195,7 +195,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: pod-reader-$username
-  namespace: $namespacedevelopment
+  namespace: $namespacedev
 subjects:
 - kind: User
   name: $username
