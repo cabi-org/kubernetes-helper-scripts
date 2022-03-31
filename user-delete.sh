@@ -10,7 +10,6 @@ kubectl config delete-context $1-context
 kubectl config delete-user $1
 
 kubectl delete rolebinding -n $namespace pod-reader-$1
-kubectl delete rolebinding -n qa pod-reader-$1
 kubectl delete rolebinding -n staging pod-reader-$1
 
 kubectl delete ns sandbox-$1
