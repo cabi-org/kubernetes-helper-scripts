@@ -37,6 +37,9 @@ echo ERROR: You must specifiy a user name in the format first-name
 exit 1
 fi
 
+echo actual username to use will be $username-admin
+username=$username-admin
+
 echo generating certificate
 
 sudo openssl genrsa -out admin-$username.key 2048
