@@ -59,7 +59,7 @@ users:
 clusters:
 - cluster:
     certificate-authority-data: $cacrt
-    server: https://$kubernetescontrolplane:6443
+    server: $kubernetescontrolplane
   name: kubernetes
 contexts:
 - context:
